@@ -11,6 +11,11 @@ public class ResultInfo {
         msg = returnCodeEnum.getMsg();
     }
 
+    public ResultInfo(Integer code){
+        code = code;
+        msg = ReturnCodeEnum.getMsg(code);
+    }
+
     public ResultInfo(){
         code = ReturnCodeEnum.REQUEST_SUCCESS.getStatus();
         msg = ReturnCodeEnum.REQUEST_SUCCESS.getMsg();

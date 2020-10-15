@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guangzhou.college.dao.DataDownloadMapper">
+  <resultMap id="BaseResultMap" type="com.guangzhou.college.entity.DataDownload">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nick_name"  property="nickName" />
+    <result column="wechat_num"  property="wechatNum" />
+    <result column="oppen_id"  property="oppenId" />
+    <result column="wechat_phone_num"  property="wechatPhoneNum" />
+    <result column="user_bind_phone_num"  property="userBindPhoneNum" />
+    <result column="create_time"  property="createTime" />
+    <result column="update_time"  property="updateTime" />
+    <result column="user_head_image"  property="userHeadImage" />
+    <result column="referrer_oppen_id"  property="referrerOppenId" />
+    <result column="company_id"  property="companyId" />
+    <result column="company_name"  property="companyName" />
+    <result column="gift_receive_status"  property="giftReceiveStatus" />
+    <result column="store_id"  property="storeId" />
+    <result column="store_name"  property="storeName" />
+    <result column="session_key"  property="sessionKey" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, nick_name, wechat_num, oppen_id, wechat_phone_num, user_bind_phone_num, create_time,
+    update_time, user_head_image,referrer_oppen_id,company_id,company_name,gift_receive_status,store_id,store_name,session_key
+  </sql>
+
+  <insert id="insert" parameterType="com.guangzhou.college.entity.TbApiUser">
+    insert into tb_api_user (nick_name, wechat_num,
+      oppen_id, wechat_phone_num, user_bind_phone_num,
+      create_time, update_time, user_head_image,referrer_oppen_id,gift_receive_status,session_key
+      )
+    values (#{nickName}, #{wechatNum}, #{oppenId}, #{wechatPhoneNum}, #{userBindPhoneNum}, #{createTime}, #{updateTime}, #{userHeadImage},
+      #{referrerOppenId},#{giftReceiveStatus},#{sessionKey}
+      )
+  </insert>
+
+</mapper>

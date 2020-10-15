@@ -109,7 +109,7 @@ public enum ReturnCodeEnum {
         return -1;
     }
 
-    public String getMsg(int status) {
+    public static String getMsg(int status) {
         for (ReturnCodeEnum r : ReturnCodeEnum.values()) {
             if (r.getStatus() == status) {
                 return r.getMsg();

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guangzhou.college.dao.VideoMapper">
+  <resultMap id="BaseResultMap" type="com.guangzhou.college.entity.Video">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="systematics" jdbcType="VARCHAR" property="systematics" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="manager" jdbcType="VARCHAR" property="manager" />
+    <result column="period" jdbcType="VARCHAR" property="period" />
+    <result column="step_count" jdbcType="VARCHAR" property="stepCount" />
+    <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="sort" jdbcType="TINYINT" property="sort" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, nick_name, wechat_num, oppen_id, wechat_phone_num, user_bind_phone_num, create_time,
+    update_time, user_head_image,referrer_oppen_id,company_id,company_name,gift_receive_status,store_id,store_name,session_key
+  </sql>
+
+  <insert id="insert" parameterType="com.guangzhou.college.entity.TbApiUser">
+    insert into tb_api_user (nick_name, wechat_num,
+      oppen_id, wechat_phone_num, user_bind_phone_num,
+      create_time, update_time, user_head_image,referrer_oppen_id,gift_receive_status,session_key
+      )
+    values (#{nickName}, #{wechatNum}, #{oppenId}, #{wechatPhoneNum}, #{userBindPhoneNum}, #{createTime}, #{updateTime}, #{userHeadImage},
+      #{referrerOppenId},#{giftReceiveStatus},#{sessionKey}
+      )
+  </insert>
+
+  <insert id="addVideo" parameterType="com.guangzhou.college.entity.Video">
+    insert into t_video
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="systematics != null">
+        systematics,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="manager != null">
+        manager,
+      </if>
+      <if test="period != null">
+        period,
+      </if>
+      <if test="stepCount != null">
+        step_count,
+      </if>
+      <if test="videoUrl != null">
+        video_url,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="systematics != null">
+        #{systematics,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="stepCount != null">
+        #{stepCount,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="queryVideoList" parameterType="com.guangzhou.college.entity.Video" resultMap="BaseResultMap">
+    select
+    *
+    from t_video
+ </select>
+
+  <update id="eidtVideo" parameterType="com.guangzhou.college.entity.Video">
+    update t_video
+    <set>
+      <if test="systematics != null">
+        systematics = #{systematics,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null">
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="stepCount != null">
+        step_count = #{stepCount,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+  <delete id="delVideo" parameterType="java.lang.Integer">
+    delete from t_video
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+</mapper>
