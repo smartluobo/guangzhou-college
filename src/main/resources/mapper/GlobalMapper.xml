@@ -3,36 +3,190 @@
 <mapper namespace="com.guangzhou.college.dao.GlobalMapper">
   <resultMap id="BaseResultMap" type="com.guangzhou.college.entity.Global">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="nick_name"  property="nickName" />
-    <result column="wechat_num"  property="wechatNum" />
-    <result column="oppen_id"  property="oppenId" />
-    <result column="wechat_phone_num"  property="wechatPhoneNum" />
-    <result column="user_bind_phone_num"  property="userBindPhoneNum" />
-    <result column="create_time"  property="createTime" />
-    <result column="update_time"  property="updateTime" />
-    <result column="user_head_image"  property="userHeadImage" />
-    <result column="referrer_oppen_id"  property="referrerOppenId" />
-    <result column="company_id"  property="companyId" />
-    <result column="company_name"  property="companyName" />
-    <result column="gift_receive_status"  property="giftReceiveStatus" />
-    <result column="store_id"  property="storeId" />
-    <result column="store_name"  property="storeName" />
-    <result column="session_key"  property="sessionKey" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="buttom_preview" jdbcType="VARCHAR" property="buttomPreview" />
+    <result column="buttom_use" jdbcType="VARCHAR" property="buttomUse" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="qr_code" jdbcType="VARCHAR" property="qrCode" />
+    <result column="links" jdbcType="VARCHAR" property="links" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="school_id" jdbcType="INTEGER" property="schoolId" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
   </resultMap>
-
   <sql id="Base_Column_List">
-    id, nick_name, wechat_num, oppen_id, wechat_phone_num, user_bind_phone_num, create_time,
-    update_time, user_head_image,referrer_oppen_id,company_id,company_name,gift_receive_status,store_id,store_name,session_key
+    id, title, url, buttom_preview, buttom_use, phone, tel, qr_code, links, description,
+    create_time, create_user, update_time, update_user, school_id, logo
   </sql>
+  <select id="queryGlobalList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_global
+  </select>
+  <delete id="delGlobal" parameterType="java.lang.Integer">
+    delete from t_global
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
 
-  <insert id="insert" parameterType="com.guangzhou.college.entity.TbApiUser">
-    insert into tb_api_user (nick_name, wechat_num,
-      oppen_id, wechat_phone_num, user_bind_phone_num,
-      create_time, update_time, user_head_image,referrer_oppen_id,gift_receive_status,session_key
-      )
-    values (#{nickName}, #{wechatNum}, #{oppenId}, #{wechatPhoneNum}, #{userBindPhoneNum}, #{createTime}, #{updateTime}, #{userHeadImage},
-      #{referrerOppenId},#{giftReceiveStatus},#{sessionKey}
-      )
+  <insert id="addGlobal" parameterType="com.guangzhou.college.entity.Global">
+    insert into t_global
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="buttomPreview != null">
+        buttom_preview,
+      </if>
+      <if test="buttomUse != null">
+        buttom_use,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="qrCode != null">
+        qr_code,
+      </if>
+      <if test="links != null">
+        links,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="schoolId != null">
+        school_id,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="buttomPreview != null">
+        #{buttomPreview,jdbcType=VARCHAR},
+      </if>
+      <if test="buttomUse != null">
+        #{buttomUse,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCode != null">
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="links != null">
+        #{links,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+    </trim>
   </insert>
+
+  <update id="eidtGlobal" parameterType="com.guangzhou.college.entity.Global">
+    update t_global
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="buttomPreview != null">
+        buttom_preview = #{buttomPreview,jdbcType=VARCHAR},
+      </if>
+      <if test="buttomUse != null">
+        buttom_use = #{buttomUse,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCode != null">
+        qr_code = #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="links != null">
+        links = #{links,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null">
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 
 </mapper>

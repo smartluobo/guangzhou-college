@@ -7,32 +7,20 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Data
-public class Global {
+public class PdfFile {
     private Integer id;
 
     private String title;
 
-    private String url;
-
-    private String buttomPreview;
-
-    private String buttomUse;
-
-    private String phone;
-
-    private String tel;
-
-    private String qrCode;
-
-    private String links;
-
     private String description;
 
+    private Byte type;
 
+    private Byte sort;
+
+    private String fileUrl;
 
     private Integer schoolId;
-
-    private String logo;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -46,5 +34,9 @@ public class Global {
     private Date updateTime;
 
     private String updateUser;
+
+
+
+
 
 }
