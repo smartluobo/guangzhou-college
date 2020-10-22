@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Controller
@@ -31,12 +32,10 @@ public class TitleController {
      * @return ResultInfo
      */
     @PostMapping(value = "/queryTitleList")
-    public ResultInfo queryTitleList(HttpServletRequest request) {
+    public ResultInfo queryTitleList(HttpServletRequest request, @RequestBody Map<String,Object> params) {
         ResultInfo resultInfo = new ResultInfo();
-        Integer page = StringUtils.isEmpty(request.getParameter("pageNum"))? 0: Integer.valueOf(request.getParameter("pageNum"));
-        Integer limit = StringUtils.isEmpty(request.getParameter("pageSize"))? 10: Integer.valueOf(request.getParameter("pageSize"));
         Title title = new Title();
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(Integer.valueOf(String.valueOf(params.get("pageNum"))),Integer.valueOf(String.valueOf(params.get("pageSize"))));
         List<Title> list = titleService.queryTitleList(title);
         PageInfo pageInfo = new PageInfo(list);
         resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
@@ -53,6 +52,7 @@ public class TitleController {
      */
     @PostMapping(value = "/addTitle")
     public ResultInfo addTitle(@RequestBody Title title) {
+        log.info("*** addTitle *** {}",title.toString());
         titleService.addTitle(title);
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }
@@ -72,12 +72,12 @@ public class TitleController {
 
     /**
      * 单笔删除记录
-     * @param id
+     * @param title
      * @return ResultInfo
      */
     @PostMapping(value = "/delTitle")
-    public ResultInfo delTitle(@PathVariable int id) {
-        titleService.delTitle(id);
+    public ResultInfo delTitle(@RequestBody Title title) {
+        titleService.delTitle(title.getId());
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }
 

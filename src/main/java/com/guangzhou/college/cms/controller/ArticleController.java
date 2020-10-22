@@ -6,6 +6,7 @@ import com.guangzhou.college.cms.service.ArticleService;
 import com.guangzhou.college.common.ResultInfo;
 import com.guangzhou.college.common.ReturnCodeEnum;
 import com.guangzhou.college.entity.Article;
+import com.guangzhou.college.entity.Title;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Controller
@@ -20,7 +22,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/cms/Article")
+@RequestMapping("/cms/article")
 public class ArticleController {
 
     @Autowired
@@ -32,12 +34,10 @@ public class ArticleController {
      * @return ResultInfo
      */
     @PostMapping(value = "/queryArticleList")
-    public ResultInfo queryArticleList(HttpServletRequest request) {
+    public ResultInfo queryArticleList(HttpServletRequest request, @RequestBody Map<String,Object> params) {
         ResultInfo resultInfo = new ResultInfo();
-        Integer page = StringUtils.isEmpty(request.getParameter("pageNum"))? 0: Integer.valueOf(request.getParameter("pageNum"));
-        Integer limit = StringUtils.isEmpty(request.getParameter("pageSize"))? 10: Integer.valueOf(request.getParameter("pageSize"));
         Article Article = new Article();
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(Integer.valueOf(String.valueOf(params.get("pageNum"))),Integer.valueOf(String.valueOf(params.get("pageSize"))));
         List<Article> list = articleService.queryArticleList(Article);
         PageInfo pageInfo = new PageInfo(list);
         resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
@@ -71,15 +71,17 @@ public class ArticleController {
     }
 
 
+
     /**
      * 单笔删除记录
-     * @param id
+     * @param article
      * @return ResultInfo
      */
     @PostMapping(value = "/delArticle")
-    public ResultInfo delArticle(@PathVariable int id) {
-        articleService.delArticle(id);
+    public ResultInfo delArticle(@RequestBody Article article) {
+        articleService.delArticle(article.getId());
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }
+
 
 }

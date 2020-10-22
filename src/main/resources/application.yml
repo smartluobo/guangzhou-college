@@ -25,3 +25,11 @@ mybatis:
 
 imageUrlPrefix: https://www.eecup.cn/guangzhou-college/image/
 imagePath: /data/image/guangzhou_college_img/
+
+
+
+# sql
+# 打印sql
+logging:
+  level:
+    com.guangzhou.college.dao: debug
