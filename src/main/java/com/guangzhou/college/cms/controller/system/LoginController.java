@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class LoginController {
 
-    @PostMapping("/login")
+    @RequestMapping("/login")
     public ResultInfo doLogin() {
         Subject currentUser = SecurityUtils.getSubject();
         if (currentUser.isAuthenticated()){

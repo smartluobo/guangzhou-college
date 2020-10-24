@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 @RestController
 @CrossOrigin
-@RequestMapping("cms/image")
+@RequestMapping("upload/image")
 public class CmsImageController {
 
     @Resource
