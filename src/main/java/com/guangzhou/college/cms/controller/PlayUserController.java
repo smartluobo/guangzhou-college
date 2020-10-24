@@ -1,20 +1,21 @@
 package com.guangzhou.college.cms.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.google.gson.JsonObject;
-import com.guangzhou.college.cms.service.GlobalService;
+import com.guangzhou.college.cms.service.PlayUserService;
 import com.guangzhou.college.common.ResultInfo;
 import com.guangzhou.college.common.ReturnCodeEnum;
-import com.guangzhou.college.entity.Global;
+import com.guangzhou.college.common.utils.MD5;
+import com.guangzhou.college.common.utils.Md5Util;
+import com.guangzhou.college.entity.PlayUser;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.codec.digest.Md5Crypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Controller
@@ -22,25 +23,23 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/cms/global")
-public class GlobalController {
+@RequestMapping("/cms/playUser")
+public class PlayUserController {
 
     @Autowired
-    private GlobalService globalService;
+    private PlayUserService playUserService;
 
     /**
      * 根据条件查询菜单列表
      * @param request
      * @return ResultInfo
      */
-    @PostMapping(value = "/queryGlobalList")
-    public ResultInfo queryGlobalList(HttpServletRequest request) {
+    @PostMapping(value = "/queryPlayUserList")
+    public ResultInfo queryPlayUserList(HttpServletRequest request, @RequestBody Map<String,Object> params) {
         ResultInfo resultInfo = new ResultInfo();
-        Integer page = StringUtils.isEmpty(request.getParameter("pageNum"))? 0: Integer.valueOf(request.getParameter("pageNum"));
-        Integer limit = StringUtils.isEmpty(request.getParameter("pageSize"))? 10: Integer.valueOf(request.getParameter("pageSize"));
-        Global Global = new Global();
-        PageHelper.startPage(page,limit);
-        List<Global> list = globalService.queryGlobalList(Global);
+        PlayUser PlayUser = new PlayUser();
+        PageHelper.startPage(Integer.valueOf(String.valueOf(params.get("pageNum"))),Integer.valueOf(String.valueOf(params.get("pageSize"))));
+        List<PlayUser> list = playUserService.queryPlayUserList(PlayUser);
         PageInfo pageInfo = new PageInfo(list);
         resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
         resultInfo.setTotal(pageInfo.getTotal());
@@ -51,37 +50,37 @@ public class GlobalController {
 
     /**
      * 添加记录
-     * @param Global
+     * @param PlayUser
      * @return ResultInfo
      */
-    @PostMapping(value = "/addGlobal")
-    public ResultInfo addGlobal(@RequestBody Global Global) {
-        globalService.addGlobal(Global);
+    @PostMapping(value = "/addPlayUser")
+    public ResultInfo addPlayUser(@RequestBody PlayUser PlayUser) {
+        playUserService.addPlayUser(PlayUser);
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }
 
 
     /**
      * 修改记录
-     * @param Global
+     * @param PlayUser
      * @return ResultInfo
      */
-    @PostMapping(value = "/eidtGlobal")
-    public ResultInfo eidtGlobal(@RequestBody Global Global) {
-        log.info(Global.toString());
-        globalService.eidtGlobal(Global);
+    @PostMapping(value = "/eidtPlayUser")
+    public ResultInfo eidtPlayUser(@RequestBody PlayUser PlayUser) {
+        playUserService.eidtPlayUser(PlayUser);
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }
 
 
+
     /**
      * 单笔删除记录
-     * @param id
+     * @param PlayUser
      * @return ResultInfo
      */
-    @PostMapping(value = "/delGlobal")
-    public ResultInfo delGlobal(@PathVariable int id) {
-        globalService.delGlobal(id);
+    @PostMapping(value = "/delPlayUser")
+    public ResultInfo delPlayUser(@RequestBody PlayUser PlayUser) {
+        playUserService.delPlayUser(PlayUser.getId());
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }
 

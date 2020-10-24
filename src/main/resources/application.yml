@@ -23,8 +23,8 @@ server:
 mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
 
-imageUrlPrefix: https://www.eecup.cn/guangzhou-college/image/
-imagePath: file:D:/guangzhou_college_img/ #/data/image/guangzhou_college_img/
+imageUrlPrefix: http://127.0.0.1:9331/guangzhou-college/image/ #https://www.eecup.cn/guangzhou-college/image/
+imagePath: D:\guangzhou_college_img\ #/data/image/guangzhou_college_img/
 
 
 
