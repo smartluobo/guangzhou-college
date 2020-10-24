@@ -6,6 +6,7 @@ import com.guangzhou.college.cms.service.PdfFileService;
 import com.guangzhou.college.common.ResultInfo;
 import com.guangzhou.college.common.ReturnCodeEnum;
 import com.guangzhou.college.entity.PdfFile;
+import com.guangzhou.college.entity.Title;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Controller
@@ -20,7 +22,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @CrossOrigin
-@RequestMapping("/cms/PdfFile")
+@RequestMapping("/cms/pdfFile")
 public class PdfFileController {
 
     @Autowired
@@ -32,12 +34,10 @@ public class PdfFileController {
      * @return ResultInfo
      */
     @PostMapping(value = "/queryPdfFileList")
-    public ResultInfo queryPdfFileList(HttpServletRequest request) {
+    public ResultInfo queryPdfFileList(HttpServletRequest request,@RequestBody Map<String,Object> params) {
         ResultInfo resultInfo = new ResultInfo();
-        Integer page = StringUtils.isEmpty(request.getParameter("pageNum"))? 0: Integer.valueOf(request.getParameter("pageNum"));
-        Integer limit = StringUtils.isEmpty(request.getParameter("pageSize"))? 10: Integer.valueOf(request.getParameter("pageSize"));
         PdfFile PdfFile = new PdfFile();
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(Integer.valueOf(String.valueOf(params.get("pageNum"))),Integer.valueOf(String.valueOf(params.get("pageSize"))));
         List<PdfFile> list = pdfFileService.queryPdfFileList(PdfFile);
         PageInfo pageInfo = new PageInfo(list);
         resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
@@ -71,15 +71,18 @@ public class PdfFileController {
     }
 
 
+
     /**
      * 单笔删除记录
-     * @param id
+     * @param pdfFile
      * @return ResultInfo
      */
     @PostMapping(value = "/delPdfFile")
-    public ResultInfo delPdfFile(@PathVariable int id) {
-        pdfFileService.delPdfFile(id);
+    public ResultInfo delPdfFile(@RequestBody PdfFile pdfFile) {
+        pdfFileService.delPdfFile(pdfFile.getId());
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }
+
+
 
 }

@@ -11,4 +11,6 @@ public class PlayUser extends BaseEntity {
 
     private String password;
 
+    private Integer userNo;
+
 }

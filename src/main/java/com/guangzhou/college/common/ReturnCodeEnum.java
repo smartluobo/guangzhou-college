@@ -42,6 +42,9 @@ public enum ReturnCodeEnum {
     /** 旧的密码错误 **/
     OLD_PASSWORD_IS_ERROR(100016, "OLD_PASSWORD_IS_ERROR"),
 
+    /** 接口哦请求失败 */
+    VERIFICATION_FAILED(200000, "error"),
+
 
     /** 后台程序错误 */
     PROGRAM_ERROR(999999, "PROGRAM ERROR"),
