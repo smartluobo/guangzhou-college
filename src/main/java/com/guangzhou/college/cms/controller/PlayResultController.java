@@ -37,13 +37,10 @@ public class PlayResultController {
         ResultInfo resultInfo = new ResultInfo();
         PlayResult playResult = new PlayResult();
         String userNo = String.valueOf(params.get("userNo"));
-        String schoolId = String.valueOf(params.get("userNo"));
         if(!StringUtils.isEmpty(userNo)){
             playResult.setUserNo(userNo);
         }
-        if(!StringUtils.isEmpty(schoolId)){
-            playResult.setSchoolId(Integer.valueOf(schoolId));
-        }
+
         PageHelper.startPage(Integer.valueOf(String.valueOf(params.get("pageNum"))),Integer.valueOf(String.valueOf(params.get("pageSize"))));
         List<PlayResult> list = playResultService.queryPlayResultList(playResult);
         PageInfo pageInfo = new PageInfo(list);

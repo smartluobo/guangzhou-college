@@ -10,6 +10,7 @@ import com.guangzhou.college.common.utils.Md5Util;
 import com.guangzhou.college.entity.PlayUser;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.Md5Crypt;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,10 @@ public class PlayUserController {
     public ResultInfo queryPlayUserList(HttpServletRequest request, @RequestBody Map<String,Object> params) {
         ResultInfo resultInfo = new ResultInfo();
         PlayUser PlayUser = new PlayUser();
+        String userNo = String.valueOf(params.get("userNo"));
+        if(!StringUtils.isEmpty(userNo)){
+            PlayUser.setUserNo(Integer.valueOf(userNo));
+        }
         PageHelper.startPage(Integer.valueOf(String.valueOf(params.get("pageNum"))),Integer.valueOf(String.valueOf(params.get("pageSize"))));
         List<PlayUser> list = playUserService.queryPlayUserList(PlayUser);
         PageInfo pageInfo = new PageInfo(list);
@@ -55,6 +60,7 @@ public class PlayUserController {
      */
     @PostMapping(value = "/addPlayUser")
     public ResultInfo addPlayUser(@RequestBody PlayUser PlayUser) {
+        PlayUser.setMd5Password(Md5Util.encryptMD5(PlayUser.getPassword()));
         playUserService.addPlayUser(PlayUser);
         return new ResultInfo(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
     }

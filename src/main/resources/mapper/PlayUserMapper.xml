@@ -11,9 +11,12 @@
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="md5_password" property="md5Password" jdbcType="VARCHAR" />
+
+
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, password, school_id, create_time, create_user, update_time, update_user,user_no
+    id, name, password, school_id, create_time, create_user, update_time, update_user,user_no,md5_password
   </sql>
   <select id="queryPlayUserList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -76,6 +79,9 @@
       <if test="userNo != null" >
         user_no,
       </if>
+      <if test="md5Password != null" >
+        md5_password,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -105,6 +111,9 @@
       <if test="userNo != null" >
         #{userNo,jdbcType=INTEGER},
       </if>
+      <if test="md5Password != null" >
+        #{md5Password,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <update id="eidtPlayUser" parameterType="com.guangzhou.college.entity.PlayUser" >
@@ -115,6 +124,9 @@
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="md5Password != null" >
+        md5_password = #{md5Password,jdbcType=VARCHAR},
       </if>
       <if test="schoolId != null" >
         school_id = #{schoolId,jdbcType=INTEGER},

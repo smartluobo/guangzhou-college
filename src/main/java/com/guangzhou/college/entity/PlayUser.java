@@ -8,6 +8,8 @@ import lombok.Data;
 public class PlayUser extends BaseEntity {
 
 
+    private String md5Password;
+
     private String name;
 
     @JSONField(serialize = false)

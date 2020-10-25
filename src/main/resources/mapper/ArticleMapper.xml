@@ -15,6 +15,8 @@
 
   <resultMap id="ResultMapWithBLOBs" type="com.guangzhou.college.entity.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="html_content" property="htmlContent" jdbcType="LONGVARCHAR" />
+
   </resultMap>
 
   <sql id="Base_Column_List" >
@@ -67,6 +69,9 @@
       <if test="content != null" >
         content,
       </if>
+      <if test="htmlContent != null" >
+        html_content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -99,6 +104,9 @@
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
+      <if test="htmlContent != null" >
+        #{htmlContent,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="eidtArticle" parameterType="com.guangzhou.college.entity.Article" >
@@ -130,6 +138,9 @@
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="htmlContent != null" >
+        content = #{htmlContent,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
