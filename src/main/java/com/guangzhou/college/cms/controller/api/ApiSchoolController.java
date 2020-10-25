@@ -1,13 +1,12 @@
 package com.guangzhou.college.cms.controller.api;
 
-import com.guangzhou.college.cms.service.GlobalService;
 import com.guangzhou.college.cms.service.PlayResultService;
 import com.guangzhou.college.cms.service.PlayUserService;
 import com.guangzhou.college.common.ResultInfo;
 import com.guangzhou.college.common.ReturnCodeEnum;
 import com.guangzhou.college.common.utils.JsonUtil;
-import com.guangzhou.college.common.utils.MD5;
 import com.guangzhou.college.common.utils.Md5Util;
+import com.guangzhou.college.common.utils.ValidateUtils;
 import com.guangzhou.college.entity.PlayResult;
 import com.guangzhou.college.entity.PlayUser;
 import lombok.extern.slf4j.Slf4j;
@@ -112,6 +111,12 @@ public class ApiSchoolController {
         if(StringUtils.isEmpty(schoolId)){
             message = "学校编码ID不能为空";
         }
+        if (!ValidateUtils.scoreIntervalValidate(Integer.valueOf(result))){
+            message = "成绩的分数必须在0到100分之内";
+        }
+        if(!existUserNo(Integer.valueOf(userNo),Integer.valueOf(schoolId))){
+            message = "学号:"+userNo+"不存在";
+        }
         if(StringUtils.isEmpty(message)){
             PlayResult playResult = new PlayResult();
             playResult.setSchoolId(Integer.valueOf(schoolId));
@@ -126,5 +131,20 @@ public class ApiSchoolController {
         return resultInfo;
     }
 
+
+
+
+    //判断是否存在这个学号
+    private boolean existUserNo(Integer userNo,Integer schoolId){
+        PlayUser playUser = new PlayUser();
+        playUser.setSchoolId(schoolId);
+        playUser.setUserNo(userNo);
+        List<PlayUser> playUserList = playUserService.queryPlayUserList(playUser);
+        if(playUserList.size()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }

@@ -18,7 +18,17 @@
     select 
     <include refid="Base_Column_List" />
     from t_play_result
-    where id = #{id,jdbcType=INTEGER}
+    <where>
+
+      <if test='userNo != null and userNo != ""' >
+        and user_no = #{userNo,jdbcType=INTEGER}
+      </if>
+      <if test='schoolId != null and schoolId != ""' >
+        and school_id = #{schoolId,jdbcType=INTEGER}
+      </if>
+
+    </where>
+    order by create_time desc
   </select>
   <delete id="delPlayResult" parameterType="java.lang.Integer" >
     delete from t_play_result
