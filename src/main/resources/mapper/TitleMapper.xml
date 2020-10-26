@@ -33,7 +33,7 @@
 
 
   <select id="queryTitleList" parameterType="com.guangzhou.college.entity.Title" resultMap="BaseResultMap">
-          select  * from t_title
+          select  * from t_title order by sort asc
   </select>
 
 
