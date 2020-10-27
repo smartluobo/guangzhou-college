@@ -27,6 +27,15 @@ imageUrlPrefix: http://8.129.214.63:9331/guangzhou-college/image/ #https://www.e
 imagePath: C:\guangzhou_college_img\ #/data/image/guangzhou_college_img/
 
 
+wxConfig:
+  wxspAppid: wx4123b4481a5e6e66
+  grantType: authorization_code
+  wxspSecret: bf861f60fbc30bf11ad07a73b4fbcf98
+  mchId: 1540685681
+  tradeType: JSAPI
+  apiKey: eecup2019outlookcom1234567891234
+
+
 
 # sql
 # 打印sql
