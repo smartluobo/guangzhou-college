@@ -9,10 +9,7 @@ import com.guangzhou.college.common.utils.WeChatUtils;
 import com.guangzhou.college.entity.wechat.WxGetUserInfoParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,36 +40,32 @@ public class WeChatController {
     }
 
 
-
-    //@ApiOperation("获取微信小程序的openid")
-    //@ResponseBody
-    @GetMapping(value = "/getOpenid")
-    public ResultInfo getOpenid(String code) throws Exception{
+    @PostMapping(value = "/getUserInfo")
+    public ResultInfo getUserInfo(@RequestBody Map<String,Object> params) throws Exception{
         ResultInfo resultInfo = new ResultInfo();
+
+        log.info("*** params-->{}***",params.toString());
+
+        String code = String.valueOf(params.get("code"));
+        String encryptedData = String.valueOf(params.get("encryptedData"));
+        String iv = String.valueOf(params.get("iv"));
 
         //登录凭证不能为空
         if (code == null || code.length() == 0) {
             return ResultInfo.newFailResultInfo("code不能为空");
         }
-        //小程序唯一标识   (在微信小程序管理后台获取)
-//        String wxspAppid = "************";
-//        //小程序的 app secret (在微信小程序管理后台获取)
-//        String wxspSecret = "************";
-//        //授权（必填）  一般都是这个 可不用改
-//        String grant_type = "authorization_code";
-        //1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid
-        //请求参数
-        Map<String,Object> params = new HashMap<>();
-        params.put("appid",wxspAppid);
-        params.put("secret",wxspSecret);
-        params.put("js_code",code);
-        params.put("grant_type",grantType);
+        Map<String,String> param = new HashMap<>();
+        param.put("appid","wx4123b4481a5e6e66");
+        param.put("secret","bf861f60fbc30bf11ad07a73b4fbcf98");
+        param.put("js_code",code);
+        param.put("grant_type","authorization_code");
         //发送请求
-        String sr = HttpUtil.get("https://api.weixin.qq.com/sns/jscode2session", params);
+        String sr = HttpUtil.getHttp("https://api.weixin.qq.com/sns/jscode2session", param);
         //解析相应内容（转换成json对象）
         JSONObject json = JSONObject.parseObject(sr);
         log.info("*** json --> {}*** ", json.toJSONString());
-        resultInfo.setData(json);
+
+        resultInfo.setData(WeChatUtils.wxDecrypt(encryptedData,String.valueOf(json.get("session_key")),iv));
         resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
         return resultInfo;
     }
@@ -80,28 +73,25 @@ public class WeChatController {
     //2、对encryptedData加密数据进行AES解密
     //下面开始获取微信信息
 
-    @GetMapping(value = "WxGetUserInfo")
+
+
+
+
+/*    @GetMapping(value = "WxGetUserInfo")
     //需要三个参数 我这里用的对象传的 encryptedData，session_key，iv具体看方法里有解释
     public ResultInfo WxGetUserInfo(@RequestBody WxGetUserInfoParam param){
+        ResultInfo resultInfo = new ResultInfo();
         try {		//调用工具给上面的三个参数，这些参数前端都可以给
             String result = AesUtil.decrypt(param.getEncryptedData(), param.getSessionKey(),param.getIv(), "UTF-8");
             if (null != result && result.length() > 0) {
-
                 JSONObject userInfoJSON = JSONObject.parseObject(result);
-                Map<String,Object> userInfo = new HashMap<>();
-                userInfo.put("openId", userInfoJSON.get("openId"));
-                userInfo.put("nickName", userInfoJSON.get("nickName"));
-                userInfo.put("gender", userInfoJSON.get("gender"));
-                userInfo.put("city", userInfoJSON.get("city"));
-                userInfo.put("province", userInfoJSON.get("province"));
-                userInfo.put("country", userInfoJSON.get("country"));
-                userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
-                userInfo.put("unionId", userInfoJSON.get("unionId"));
-
+                WxUserInfo wxUserInfo = JSONObject.toJavaObject(userInfoJSON,WxUserInfo.class);
+                resultInfo.setData(wxUserInfo);
+                resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ResultInfo.newSuccessResultInfo();
-    }
+        return resultInfo;
+    }*/
 }
