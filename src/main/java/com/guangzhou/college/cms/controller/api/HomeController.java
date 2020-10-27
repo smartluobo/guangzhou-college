@@ -1,13 +1,7 @@
 package com.guangzhou.college.cms.controller.api;
 
-import com.guangzhou.college.cms.service.ArticleService;
-import com.guangzhou.college.cms.service.GlobalService;
-import com.guangzhou.college.cms.service.PdfFileService;
-import com.guangzhou.college.cms.service.TitleService;
-import com.guangzhou.college.entity.Article;
-import com.guangzhou.college.entity.Global;
-import com.guangzhou.college.entity.PdfFile;
-import com.guangzhou.college.entity.Title;
+import com.guangzhou.college.cms.service.*;
+import com.guangzhou.college.entity.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +16,10 @@ import java.util.Map;
 @RequestMapping("/home")
 public class HomeController {
 
+
+
+    @Autowired
+    private VideoService videoService;
 
     @Autowired
     private TitleService titleService;
@@ -50,6 +48,8 @@ public class HomeController {
         List<Global> globalObject = globalService.queryGlobalList(new Global());
         List<Article> articleList =  articleService.queryArticleList(new Article());
         List<PdfFile> pdfFileList =  pdfFileService.queryPdfFileList(new PdfFile());
+        List<Video> videoList = videoService.queryVideoList(new Video());
+        result.put("middleVideoList",videoList);
         result.put("menuList",menuList);
         result.put("articleList",articleList);
         result.put("pdfFileList",pdfFileList);

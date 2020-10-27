@@ -2,7 +2,7 @@ spring:
   application:
     name: guangzhou-college
   datasource:
-    url: jdbc:mysql://localhost:3306/guangzhou_college
+    url: jdbc:mysql://localhost:3306/guangzhou_college?useUnicode=true&characterEncoding=UTF8
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
@@ -11,7 +11,7 @@ spring:
     static-path-pattern: /image/**
   resources:
 #    static-locations: file:/data/image/guangzhou_college_img
-    static-locations: file:D:/guangzhou_college_img/
+    static-locations: file:C:/guangzhou_college_img/
   servlet:
     multipart:
       max-file-size: 10MB
@@ -24,7 +24,7 @@ mybatis:
   mapper-locations: classpath*:mapper/**/*.xml
 
 imageUrlPrefix: http://8.129.214.63:9331/guangzhou-college/image/ #https://www.eecup.cn/guangzhou-college/image/
-imagePath: D:\guangzhou_college_img\ #/data/image/guangzhou_college_img/
+imagePath: C:\guangzhou_college_img\ #/data/image/guangzhou_college_img/
 
 
 
