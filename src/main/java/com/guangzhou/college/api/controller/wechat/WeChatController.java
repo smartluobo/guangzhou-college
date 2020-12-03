@@ -3,7 +3,6 @@ package com.guangzhou.college.api.controller.wechat;
 import com.alibaba.fastjson.JSONObject;
 import com.guangzhou.college.common.ResultInfo;
 import com.guangzhou.college.common.ReturnCodeEnum;
-import com.guangzhou.college.common.utils.AesUtil;
 import com.guangzhou.college.common.utils.HttpUtil;
 import com.guangzhou.college.common.utils.WeChatUtils;
 import com.guangzhou.college.entity.wechat.WxGetUserInfoParam;

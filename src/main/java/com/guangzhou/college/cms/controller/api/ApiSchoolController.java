@@ -67,17 +67,16 @@ public class ApiSchoolController {
                 if(!playUser.getPassword().equals(Md5Util.encryptMD5(password))){
                     message = "您输入的密码不正确！";
                 }
-                if(StringUtils.isEmpty(message)){
-                    resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
-                    resultInfo.setData(playUser);
-                }else{
-                    resultInfo.setCode(ReturnCodeEnum.VERIFICATION_FAILED.getStatus());
-                    resultInfo.setMsg(message);
-                }
             }else{
                 message = "您输入的用户名不存在！";
             }
-
+            if(StringUtils.isEmpty(message)){
+                resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
+                resultInfo.setData(playUser);
+            }else{
+                resultInfo.setCode(ReturnCodeEnum.VERIFICATION_FAILED.getStatus());
+                resultInfo.setMsg(message);
+            }
         } catch (NumberFormatException e) {
             resultInfo.setCode(ReturnCodeEnum.PARAMETER_TYPE_ERROR.getStatus());
             resultInfo.setMsg(message);
@@ -131,6 +130,26 @@ public class ApiSchoolController {
         }
         return resultInfo;
     }
+
+
+
+
+    /**
+     * 登录接口
+     * @param params
+     * @return ResultInfo
+     */
+    @PostMapping(value = "/addImgOfGrades")
+    public ResultInfo addImgOfGrades(@RequestBody Map<String,Object> params) throws Exception {
+        ResultInfo resultInfo = new ResultInfo();
+        log.info("*** ApiSchoolController addGrades*** {}", JsonUtil.mapToJson(params));
+        String userNo = String.valueOf(params.get("userNo"));
+        String image = String.valueOf(params.get("image"));
+        resultInfo.setCode(ReturnCodeEnum.REQUEST_SUCCESS.getStatus());
+        resultInfo.setData(params);
+        return resultInfo;
+    }
+
 
 
 
