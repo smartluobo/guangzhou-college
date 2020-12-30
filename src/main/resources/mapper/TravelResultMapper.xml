@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guangzhou.college.dao.TravelResultMapper" >
+  <resultMap id="BaseResultMap" type="com.guangzhou.college.entity.TravelResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="total_score" property="totalScore" jdbcType="VARCHAR" />
+    <result column="yuyue_score" property="yuyueScore" jdbcType="VARCHAR" />
+    <result column="xianzhirenliu_score" property="xianzhirenliuScore" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="fengxianshibie_score" property="fengxianshibieScore" jdbcType="VARCHAR" />
+    <result column="caitashijian_score" property="caitashijianScore" jdbcType="VARCHAR" />
+    <result column="fashenghuozai_score" property="fashenghuozaiScore" jdbcType="VARCHAR" />
+    <result column="kaohe_score" property="kaoheScore" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `id`,
+    `code`,
+    `total_score`,
+    `yuyue_score`,
+    `xianzhirenliu_score`,
+    `fengxianshibie_score`,
+    `caitashijian_score`,
+    `fashenghuozai_score`,
+    `kaohe_score`,
+    `create_time`,
+    `school`
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_travel_result
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectListByPrimaryKey" resultMap="BaseResultMap" parameterType="com.guangzhou.college.entity.TravelResult" >
+    select
+    <include refid="Base_Column_List" />
+    from t_travel_result
+    <where>
+
+      <if test="code != null" >
+       and code =  #{code,jdbcType=VARCHAR}
+      </if>
+
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_travel_result
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.guangzhou.college.entity.TravelResult" >
+    insert into t_travel_result (id, title, url,
+      desc, create_time, create_user,
+      update_time, update_user, type,
+      school_id, sort)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
+      #{desc,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR},
+      #{updateTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+      #{schoolId,jdbcType=INTEGER}, #{sort,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guangzhou.college.entity.TravelResult" >
+    insert into t_travel_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="totalScore != null" >
+        total_score,
+      </if>
+      <if test="yuyueScore != null" >
+        yuyue_score,
+      </if>
+      <if test="xianzhirenliuScore != null" >
+        xianzhirenliu_score,
+      </if>
+      <if test="fengxianshibieScore != null" >
+        fengxianshibie_score,
+      </if>
+      <if test="caitashijianScore != null" >
+        caitashijian_score,
+      </if>
+      <if test="fashenghuozaiScore != null" >
+        fashenghuozai_score,
+      </if>
+      <if test="kaoheScore != null" >
+        kaohe_score,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="school != null" >
+        school,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="totalScore != null" >
+        #{totalScore,jdbcType=VARCHAR},
+      </if>
+      <if test="yuyueScore != null" >
+        #{yuyueScore,jdbcType=VARCHAR},
+      </if>
+      <if test="xianzhirenliuScore != null" >
+        #{xianzhirenliuScore,jdbcType=VARCHAR},
+      </if>
+      <if test="fengxianshibieScore != null" >
+        #{fengxianshibieScore,jdbcType=VARCHAR},
+      </if>
+      <if test="caitashijianScore != null" >
+        #{caitashijianScore,jdbcType=VARCHAR},
+      </if>
+      <if test="fashenghuozaiScore != null" >
+        #{fashenghuozaiScore,jdbcType=VARCHAR},
+      </if>
+      <if test="kaoheScore != null" >
+        #{kaoheScore,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guangzhou.college.entity.TravelResult" >
+    update t_travel_result
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="schoolId != null" >
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guangzhou.college.entity.TravelResult" >
+    update t_travel_result
+    set title = #{title,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
