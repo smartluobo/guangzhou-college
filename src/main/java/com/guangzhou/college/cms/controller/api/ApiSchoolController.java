@@ -213,6 +213,7 @@ public class ApiSchoolController {
             travelResult.setCaitashijianScore(String.valueOf(params.get("caitashijianScore")));
             travelResult.setFashenghuozaiScore(String.valueOf(params.get("fashenghuozaiScore")));
             travelResult.setKaoheScore(String.valueOf(params.get("kaoheScore")));
+            travelResult.setJiancemudiScore(String.valueOf(params.get("jiancemudiScore")));
             travelResult.setCreateTime(new Date());
             travelResult.setSchool(String.valueOf(params.get("service")));
             log.info(travelResult.toString());
