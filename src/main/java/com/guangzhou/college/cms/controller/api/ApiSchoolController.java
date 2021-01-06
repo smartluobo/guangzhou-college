@@ -214,6 +214,7 @@ public class ApiSchoolController {
             travelResult.setFashenghuozaiScore(String.valueOf(params.get("fashenghuozaiScore")));
             travelResult.setKaoheScore(String.valueOf(params.get("kaoheScore")));
             travelResult.setJiancemudiScore(String.valueOf(params.get("jiancemudiScore")));
+            travelResult.setMiehuoScore(String.valueOf(params.get("miehuoScore")));
             travelResult.setCreateTime(new Date());
             travelResult.setSchool(String.valueOf(params.get("service")));
             log.info(travelResult.toString());
