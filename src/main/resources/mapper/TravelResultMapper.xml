@@ -13,12 +13,6 @@
     <result column="fashenghuozai_score" property="fashenghuozaiScore" jdbcType="VARCHAR" />
     <result column="jiancemudi_score" property="jiancemudiScore" jdbcType="VARCHAR" />
     <result column="miehuo_score" property="miehuoScore" jdbcType="VARCHAR" />
-
-
-
-
-
-
     <result column="kaohe_score" property="kaoheScore" jdbcType="VARCHAR" />
     <result column="school" property="school" jdbcType="VARCHAR" />
   </resultMap>
@@ -35,7 +29,7 @@
     `jiancemudi_score`,
     `miehuo_score`,
     `create_time`,
-    `school`,
+    `school`
 
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
